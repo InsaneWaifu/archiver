@@ -7,7 +7,7 @@ from yt_dlp import YoutubeDL
 from pprint import pprint
 import yt_dlp
 
-supported_sites = ["youtube.com", "tiktok.com"]
+supported_sites = ["youtube.com", "tiktok.com", "youtu.be"]
 
 opts = {'extract_flat': False,
  'fragment_retries': 10,
