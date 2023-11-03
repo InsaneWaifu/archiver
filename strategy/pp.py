@@ -87,10 +87,10 @@ class FFMpegRencodeH264Strategy(DownloadStrategy):
         return False
     
     async def download(self, url, ctx) -> list[DownloadStrategy]:
-        
+        await ctx.send("Re-encoding")
         ffname = "\"" + self.filename.replace("\"", "\\\"") + "\""
         print("Re-encode required")
-        os.system("ffmpeg -y -i " + ffname + " -c:v libx264 -preset ultrafast -c:a aac output.mp4")
+        os.system("ffmpeg -y -i " + ffname + " -c:v libx264 -preset ultrafast -c:a aac ooutput.mp4")
         
-        return [FFMpegCompressVideoStrategy("output.mp4")]
+        return [FFMpegCompressVideoStrategy("ooutput.mp4")]
         
