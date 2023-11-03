@@ -92,5 +92,5 @@ class FFMpegRencodeH264Strategy(DownloadStrategy):
         print("Re-encode required")
         os.system("ffmpeg -y -i " + ffname + " -c:v libx264 -preset ultrafast -c:a aac output.mp4")
         
-        return [FFMpegCompressVideoStrategy(self.filename)]
+        return [FFMpegCompressVideoStrategy("output.mp4")]
         
