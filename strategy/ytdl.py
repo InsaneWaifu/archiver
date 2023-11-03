@@ -66,12 +66,14 @@ class YtdlStrategy(DownloadStrategy):
                     pass
             
 
-            if not hasaudio:
-
-                pref_format += "+bestaudio"
 
             if pref_format == None:
                 pref_format = "best"
+            
+            if not hasaudio:
+                pref_format += "+bestaudio"
+
+
         opt2 = opts.copy()
         opt2["format"] = pref_format
         filename_collector = FilenameCollectorPP()
