@@ -9,12 +9,12 @@ def get_platform_commands():
     if os.name == "nt":
         return [
             "ffmpeg -y -i {} -c:v libx264 -b:v {} -preset ultrafast -pass 1 -an -f null NUL",
-            "ffmpeg -y -i {} -c:v libx264 -b:v {} -preset ultrafast -pass 2 -c:a aac -b:a 32k output.mp4"
+            "ffmpeg -y -i {} -c:v libx264 -b:v {} -preset ultrafast -pass 2 -c:a aac -b:a 64k output.mp4"
         ]
     else:
         return [
             "ffmpeg -y -i {} -c:v libx264 -b:v {} -preset ultrafast -pass 1 -an -f null /dev/null",
-            "ffmpeg -y -i {} -c:v libx264 -b:v {} -preset ultrafast -pass 2 -c:a aac -b:a 32k output.mp4"
+            "ffmpeg -y -i {} -c:v libx264 -b:v {} -preset ultrafast -pass 2 -c:a aac -b:a 64k output.mp4"
         ]
 
 class FFMpegCompressVideoStrategy(DownloadStrategy):
@@ -36,7 +36,7 @@ class FFMpegCompressVideoStrategy(DownloadStrategy):
 
             
             target_filesize =  8388.608 * 23 #just to be safe 
-            target_filesize -= 32 # remove audio bitrate and some more because ffmpeg lies to me about the file sizes
+            target_filesize -= 64 # remove audio bitrate and some more because ffmpeg lies to me about the file sizes
 
             target_filesize *= 0.8
 
