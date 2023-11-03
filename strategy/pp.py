@@ -67,6 +67,7 @@ class FFMpegCompressVideoStrategy(DownloadStrategy):
             probe = ffprobe3.probe(self.filename)
             v = probe.video[0]
 
+            print("Codec:" + v.codec_name)
             if "265" in v.codec_name:
                 return [FFMpegRencodeH264Strategy(self.filename)]
             await ctx.send_followup("Uploading...")
