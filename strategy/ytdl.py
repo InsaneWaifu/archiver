@@ -41,6 +41,7 @@ class YtdlStrategy(DownloadStrategy):
         if os.path.isfile("ooutput.mp4"):
             os.remove("ooutput.mp4")
 
+        opt2 = opts.copy()
 
         with YoutubeDL(opts) as ydl:
             meta = ydl.extract_info(
@@ -67,15 +68,17 @@ class YtdlStrategy(DownloadStrategy):
             
 
 
-            if pref_format == None:
-                pref_format = "best"
-            
-            if not hasaudio:
+            if pref_format and not hasaudio:
                 pref_format += "+bestaudio"
+            
+            if pref_format:
+                
+                opt2["format"] = pref_format
 
 
-        opt2 = opts.copy()
-        opt2["format"] = pref_format
+            
+
+
         filename_collector = FilenameCollectorPP()
         with YoutubeDL(opt2) as ydl:
             ydl.add_post_processor(filename_collector)
