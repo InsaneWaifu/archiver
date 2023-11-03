@@ -10,27 +10,11 @@ import re
 import string
 from gallery_dl import output
 from discord import default_permissions
-from yt_dlp import YoutubeDL
 import os
 
 
-opts = {'extract_flat': False,
- 'final_ext': 'mp4',
- 'fragment_retries': 10,
- 'outtmpl': {'default': 'ooutput.mp4'},
- 'postprocessors': [{'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}],
- 'retries': 10}
-    
-def dl(url):
-    if os.path.isfile("ooutput.mp4"):
-        os.remove("ooutput.mp4")
-    with YoutubeDL(opts) as ydl:
-        ydl.download([url])
-    # redundant for most downloads as its already in an acceptable encoding. maybe check with ffprobe?
-    os.system("ffmpeg -y -i ooutput.mp4 -c:v libx264 -c:a aac output.mp4")
-    print("downloaded")
-   
-    
+from strategy.ytdl import YtdlStrategy
+from strategy.gallerydl import GalleryDLStrategy
         
 def addlogs():
     # stolen i think
@@ -93,7 +77,7 @@ class Util(commands.Cog):
         await ctx.guild.create_forum_channel(name, overwrites=perms)
         await ctx.respond("Made")
         
-    
+    """
     @slash()
     async def gallerydl(self,ctx,gallery: str):
         await ctx.defer()
@@ -134,18 +118,26 @@ class Util(commands.Cog):
         await asyncio.gather(*tasks)
         print("done")
         await ctx.send("Done")
-    
+    """
+
+    strats = [YtdlStrategy, GalleryDLStrategy]
     @slash()
-    async def ytdl(self, ctx, url: str):
+    async def download(self, ctx, url: str):
+        
+        s = None
         await ctx.defer()
-        try:
-            loop = asyncio.get_event_loop()
-            print('dl')
-            await loop.run_in_executor(None, lambda: dl(url))
-            print("uploading")
-            file = open("output.mp4", "rb")
-            await ctx.send("File", file=discord.File(file, "ytdl.mp4"))
-            file.close()
-        finally:
-            await ctx.send_followup("Done")
-         
+        for strat in self.strats:
+            if strat.can_download(url):
+                s = strat
+                break
+
+        if s == None:
+            await ctx.respond("Can't download this!")
+            return
+
+        arr = [s()]
+        while len(arr) != 0:
+            print("Run")
+            arr += await arr.pop(0).download(url, ctx)
+            print("Done")
+        await ctx.send("Download pipeline finished")

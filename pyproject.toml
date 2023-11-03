@@ -12,6 +12,8 @@ py-cord = "^2.4.1"
 gallery-dl = "^1.25.8"
 yt-dlp = "^2023.7.6"
 python-dotenv = "^1.0.0"
+ffprobe-python = "^1.0.3"
+ffprobe3-python3 = {git = "https://github.com/jboy/ffprobe3-python3"}
 
 
 [build-system]

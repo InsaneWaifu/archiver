@@ -492,6 +492,32 @@ files = [
 test = ["pytest (>=6)"]
 
 [[package]]
+name = "ffprobe-python"
+version = "1.0.3"
+description = " A wrapper around ffprobe command to extract metadata from media files."
+optional = false
+python-versions = "*"
+files = [
+    {file = "ffprobe-python-1.0.3.tar.gz", hash = "sha256:b1d3e69e65e0814e28575f63a47b836a0b7cc8f1ffedd62d27152d9e4488214a"},
+    {file = "ffprobe_python-1.0.3-py3-none-any.whl", hash = "sha256:b02576228f6da0b0bb973e15e5dadb132013a4ded202dabb89ac77779e9634d6"},
+]
+
+[[package]]
+name = "ffprobe3-python3"
+version = "2.0.0"
+description = "A Python3 wrapper-library around the 'ffprobe' command-line program to extract metadata from media files or streams."
+optional = false
+python-versions = ">=3.3, <4"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/jboy/ffprobe3-python3"
+reference = "HEAD"
+resolved_reference = "4ef3a5e47d5196cf54a760ecb6172d808a47d387"
+
+[[package]]
 name = "frozenlist"
 version = "1.4.0"
 description = "A list-like structure which implements collections.abc.MutableSequence"
@@ -1074,4 +1100,4 @@ websockets = "*"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "faf0827790b1d013b353139f1b868f146ce2e01077ab13e69512abfff477c692"
+content-hash = "8a50443b8f037549f602c1ce51893536ccfb7bc2d3da27ee4360a5be7bc4c36e"
