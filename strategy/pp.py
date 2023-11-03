@@ -68,7 +68,7 @@ class FFMpegCompressVideoStrategy(DownloadStrategy):
             v = probe.video[0]
 
             print("Codec:" + v.codec_name)
-            if "265" in v.codec_name:
+            if "hevc" in v.codec_name:
                 return [FFMpegRencodeH264Strategy(self.filename)]
             await ctx.send_followup("Uploading...")
             await ctx.send("Video:", file=discord.File(self.filename))
