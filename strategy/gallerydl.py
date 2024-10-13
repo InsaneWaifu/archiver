@@ -34,7 +34,7 @@ class GalleryDLStrategy(DownloadStrategy):
                 async def task(myno, url):
                     file = io.BytesIO()
                     try:
-                        async with httpx.AsyncClient() as client:
+                        async with httpx.AsyncClient(follow_redirects=True) as client:
                             async with client.stream('GET', url) as r:
                                 fname = ""
                                 if "filename" in page[2]:
